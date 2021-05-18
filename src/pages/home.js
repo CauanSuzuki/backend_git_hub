@@ -17,7 +17,7 @@ function Home() {
       userName: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values));
+      alert( reserch(values));
     },
   });
 
@@ -38,7 +38,8 @@ function Home() {
           onChange={(event) => setUser(event.target.value)}
           placeholder="Digite o usuário"
         /> */}
-        <button onClick={reserch} type="submit">
+         <button type="submit">
+        {/* <button onClick={reserch} type="submit"> */}
           {/* {console.log("store",store)}
           {console.log("user",user)}
           {console.log("fromik",formik)}
