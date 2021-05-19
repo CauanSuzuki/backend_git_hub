@@ -3,17 +3,21 @@ import { useFormik } from "formik";
 
 function Home() {
   const [store, setStore] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   function reserch(nome) {
+    setLoading(true);
     fetch(`https://api.github.com/users/${nome}`)
       .then((row) => row.json())
       .then((data) => {
         setStore(data);
+        setLoading(false);
       });
   }
   const formik = useFormik({
     initialValues: {
       userName: "",
+      Id: "",
     },
     onSubmit: (values) => {
       reserch(values.userName);
@@ -23,6 +27,7 @@ function Home() {
   return (
     <div className="search">
       <p>Search</p>
+
       <form onSubmit={formik.handleSubmit}>
         <label htmlFor="userName">user Name:</label>
         <input
@@ -35,8 +40,9 @@ function Home() {
 
         <button type="submit">procurar</button>
       </form>
-      
-      <div className="lds-hourglass"></div>
+
+      {/* <div className={loading === true ? "lds-hourglass" : "none"}></div> */}
+      {loading && <div className="lds-hourglass"></div>}
 
       <div className="bodyx">
         Login: {store.login} <br></br>
