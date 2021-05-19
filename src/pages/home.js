@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 
 function Home() {
-  // const [user, setUser] = useState([]);
   const [store, setStore] = useState([]);
 
-  function reserch() {
-    fetch(`https://api.github.com/users/${formik.values.userName}`)
+  function reserch(nome) {
+    fetch(`https://api.github.com/users/${nome}`)
       .then((row) => row.json())
       .then((data) => {
         setStore(data);
@@ -17,12 +16,12 @@ function Home() {
       userName: "",
     },
     onSubmit: (values) => {
-      alert( reserch(values));
+      reserch(values.userName);
     },
   });
 
   return (
-    <div>
+    <div className="search">
       <p>Search</p>
       <form onSubmit={formik.handleSubmit}>
         <label htmlFor="userName">user Name:</label>
@@ -33,22 +32,13 @@ function Home() {
           onChange={formik.handleChange}
           value={formik.values.userName}
         />
-        {/* <input
-          type="text"
-          onChange={(event) => setUser(event.target.value)}
-          placeholder="Digite o usuário"
-        /> */}
-         <button type="submit">
-        {/* <button onClick={reserch} type="submit"> */}
-          {/* {console.log("store",store)}
-          {console.log("user",user)}
-          {console.log("fromik",formik)}
-          {console.log("userName",formik.userName)} */}
-          procurar
-        </button>
-      </form>
 
-      <div>
+        <button type="submit">procurar</button>
+      </form>
+      
+      <div className="lds-hourglass"></div>
+
+      <div className="bodyx">
         Login: {store.login} <br></br>
         <br></br>
         Id: {store.id}
